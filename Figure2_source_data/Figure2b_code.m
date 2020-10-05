@@ -1,6 +1,8 @@
 clear; clc;
 warning('off');
 
+addpath(genpath('C:\Users\winni\Documents\GitHub\Spatiotemporal-patterns-of-rodent-hippocampal-field-potentials-uncover-spatial-representations'))
+
 example = [46,29,175];
 deme = 'vb'; 
 
@@ -85,7 +87,7 @@ for ij = 1:length(example)
     [~,puptivepos] = max(probpro(idxts,:),[],2);
     imagesc(tim,pos,smoothdata(probpro(idxts,:),2,'gaussian',10)'); hold on;
     scatter(tim,pos(puptivepos),36,'or','filled');
-    set(gca,'YDir','normal'); clim([0,0.1]);
+    set(gca,'YDir','normal'); caxis([0,0.1]);
     yticks([0,2.9]); yticklabels([]); xticks([0:0.1:0.5]); xticklabels([]);
     
     subplot_tight(rows,cols,reshape([3:5]*cols+[2:4]',9,1)+(ij-1)*3,spacing);
@@ -93,7 +95,7 @@ for ij = 1:length(example)
     sf1{ij} = exp(scup.*f1{ij})./sum(exp(scup.*f1{ij}),2);
     imagesc(tim,pos,sf1{ij}'); hold on;
     scatter(tim,pos(puptivepos),36,'sg','filled');
-    set(gca,'YDir','normal'); clim([0,0.1]);
+    set(gca,'YDir','normal'); caxis([0,0.1]);
     yticks([0,2.9]); yticklabels([]);  xticks([0:0.1:0.5]); xticklabels([]);
     
     subplot_tight(rows,cols,reshape([6:8]*cols+[2:4]',9,1)+(ij-1)*3,spacing);
@@ -101,7 +103,7 @@ for ij = 1:length(example)
     sf2{ij} = exp(scup.*f2{ij})./sum(exp(scup.*f2{ij}),2);
     imagesc(tim,pos,sf2{ij}'); hold on;
     scatter(tim,pos(puptivepos),36,'^g','filled');
-    set(gca,'YDir','normal'); clim([0,0.1]);
+    set(gca,'YDir','normal'); caxis([0,0.1]);
     xlabel('Time (s)'); yticks([0,2.9]); xticks([0:0.1:0.5]);
     if (ij == 1) 
         yticklabels([0,290]); yl = ylabel('Position (cm)');
@@ -111,7 +113,7 @@ end
 
 % colorbar for fisrt row
 cmaxrange = 0.1;
-ax = axes; colormap(ax,flipud(bone)); clim([0,cmaxrange]);
+ax = axes; colormap(ax,flipud(bone)); caxis([0,cmaxrange]);
 cb = colorbar(ax); cb.Position = [0.06,0.53,0.023,0.3]; 
 cb.Label.String = "Probability"; cb.Label.Position = [-0.6,cmaxrange/2];
 set(cb,'XTick',[0,cmaxrange]); cb.FontSize = 8; ax.Visible = 'off';
